@@ -1,23 +1,6 @@
 #include "holberton.h"
 #include <stdio.h>
-
-/**
-  * _strcmp - compares two strings
-  * @s1: first operand (string)
-  * @s2: second operand (string)
-  *
-  * Return: difference between s1 and s2
-  */
-int _strcmp(char *s1, char *s2)
-{
-	int i;
-
-	for (i = 0; s1[i] != '\0'; i++)
-		if (s1[i] - s2[i] != 0)
-			return (s1[i] - s2[i]);
-
-	return (s1[i] - s2[i]);
-}
+#include <stdarg.h>
 
 /**
   * get_op_func - returns a pointer to the function that corresponds
@@ -27,7 +10,7 @@ int _strcmp(char *s1, char *s2)
   *
   * Return: pointer to the matching function
   */
-int (*get_op_func(char *s)(char *, char *, void *))
+char (*get_op_func(char *s)(char *, va_list))
 {
 	op_t ops[] = {
 		{"c", op_char},
@@ -36,10 +19,14 @@ int (*get_op_func(char *s)(char *, char *, void *))
 		{"d", op_dec}
 	};
 	int i = 0;
+	int end;
+
+	for (end = 0; s[end]; end++)
+		;
 
 	while (ops[i].op)
 	{
-		if (!_strcmp(s, ops[i].op))
+		if (s[end] == ops[i].op)
 			return (ops[i].func);
 		i++;
 	}
