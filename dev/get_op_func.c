@@ -10,7 +10,7 @@
   *
   * Return: pointer to the matching function
   */
-char (*get_op_func(char *s)(char *, va_list))
+char *(*get_op_func(char *s))(char *, va_list)
 {
 	op_t ops[] = {
 		{"c", op_char},
