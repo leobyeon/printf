@@ -27,7 +27,7 @@ int _strcmp(char *s1, char *s2)
   *
   * Return: pointer to the matching function
   */
-int (*get_op_func(char *s))(int, int)
+int (*get_op_func(char *s)(char *, char *, void *))
 {
 	op_t ops[] = {
 		{"c", op_char},

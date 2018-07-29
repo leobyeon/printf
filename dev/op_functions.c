@@ -1,11 +1,12 @@
 #include "holberton.h"
 #include <stdio.h>
 
-char op_char(char *str, char *op, int val)
+char op_char(char *str, char *op, void *val)
 {
 	unsigned int old_len;
 	unsigned int new_size;
 	char *newstr;
+	val = (int *)val;
 
 	for (old_len = 0; str[old_len]; old_len++)
 		;
@@ -20,12 +21,13 @@ char op_char(char *str, char *op, int val)
 	return (newstr);
 }
 
-char op_str(char *str, char *op, char *val)
+char op_str(char *str, char *op, void *val)
 {
 	unsigned int old_len;
 	unsigned int val_len;
 	unsigned int new_size;
 	char *newstr;
+	val = (int *)val;
 
 	for (old_len = 0; str[old_len]; old_len++)
 		;
@@ -45,13 +47,14 @@ char op_str(char *str, char *op, char *val)
 	return (newstr);
 }
 
-char op_int(char *str, char *op, int val)
+char op_int(char *str, char *op, void *val)
 {
 	unsigned int old_len;
 	unsigned int val_len;
 	unsigned int new_size;
 	unsigned int i = 0;
 	char *newstr;
+	val = (char *)val;
 
 	for (old_len = 0; str[old_len]; old_len++)
 		;
@@ -71,13 +74,14 @@ char op_int(char *str, char *op, int val)
 	return (newstr);
 }
 
-char op_dec(char *str, char *op, int val)
+char op_dec(char *str, char *op, void *val)
 {
 	unsigned int old_len;
 	unsigned int val_len;
 	unsigned int new_size;
 	unsigned int i = 0;
 	char *newstr;
+	val = (char *)val;
 
 	for (old_len = 0; str[old_len]; old_len++)
 		;
