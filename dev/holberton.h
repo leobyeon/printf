@@ -15,7 +15,7 @@ char *_strcat(char *dest, char *src);
 typedef struct op
 {
 	char *op;
-	int (*func)(char *a, char *b);
+	int (*func)(char *a, char *b, void *p);
 } op_t;
 
 #endif /* HOLBERTON_H */
