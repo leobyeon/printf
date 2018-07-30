@@ -8,9 +8,9 @@
  * Return: 1 if found 0 otherwise
  */
 
-int *_strchr(char c)
+int _strchr(char c)
 {
-	char s[] = "csdibuoxXSp";
+	char *s = "csdibuoxXSp";
 
 	while (*s != '\0')
 	{
@@ -25,9 +25,9 @@ int *_strchr(char c)
  * @ptr: pointer to start of conversion specifier
  * Return: number of characters in conversion specifier
  */
-int get_convspec(char *ptr)
+int get_convspec(const char *ptr)
 {
-	int i = 0;
+	int i = 1;
 	char val;
 
 	while (*(ptr + i) && *(ptr + i) != '%')
@@ -44,14 +44,16 @@ int get_convspec(char *ptr)
  * @format: pointer to format string
  * Return: Number of characters printed
  */
+#include <stdio.h>
 int _printf(const char *format, ...)
 {
 	va_list arglist;
-	int i = 0, x = 0;
+	int i = 0, x = 0, z = 0;
 	int stored = 0;
 	char *outstr;
 	char *tempstr;
 	char *convspec;
+	int totprinted = 0;
 
 
 	if (!format)
@@ -68,66 +70,48 @@ int _printf(const char *format, ...)
 		{
 			outstr[stored] = '%';
 			stored++;
-			i++;
+			i += 2;
 		}
 		else if (format[i] == '%')
 		{
-			x = getconvspec(format[i]);
+			x = get_convspec((format + i));
 			convspec = malloc(x + 1);
 			if (!convspec)
 				exit(98);
 			for (z = 0; z < x; z++)
 				convspec[z] = format[i + z];
 			convspec[z] = '\0';
-			tempstr = get_op_func(convspec, arglist);
-			for (z = 0; tempstr[z]; z++)
+			tempstr = get_op_func(convspec)(convspec, arglist);
+			for (z = 0; tempstr[z] != 0 ; z++)
 			{
 				outstr[stored] = tempstr[z];
 				stored++;
 				if (stored == 1024)
 				{
 					write(1, outstr, 1024);
+					totprinted += stored;
 					stored = 0;
 				}
 			}
-
+			free(convspec);
 			i += x;
-		}
-		else if (format[i] == 92)
-			/* code for \ character */
-		{
-			switch (format[i + 1])
-			case 'n':
-			{
-				outstr[stored] = 10;
-				stored++;
-				break;
-			}
-			case 't':
-			{
-				outstr[stored] = 9;
-				stored++;
-				break;
-			}
-			case 'f':
-			{
-				outstr[stored] = 14;
-				stored++;
-				break;
-			}
-			i++;
 		}
 		else
 		{
 			outstr[stored] = format[i];
 			stored++;
+			i++;
 		}
-		i++;
 		if (stored == 1024)
 		{
 			write(1, outstr, 1024);
+			totprinted += stored;
 			stored = 0;
 		}
 	}
+	write(1, outstr, stored);
+	totprinted += stored;
+	printf("debug- bytes printed: %d\n", totprinted);
 	free(outstr);
+	return (totprinted);
 }
