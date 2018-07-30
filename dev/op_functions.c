@@ -1,99 +1,138 @@
 #include "holberton.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
-char op_char(char *str, char *op, int val)
+/**
+  * reverse_array - reverses the content of an array of integers
+  * @a: array
+  * @n: number of elements in the array
+  *
+  * Return: void
+  */
+void reverse_str(char *str, int len)
 {
-	unsigned int old_len;
-	unsigned int new_size;
-	char *newstr;
+	int start = len - 1;
+	int end = 0;
+	char tmp;
 
-	for (old_len = 0; str[old_len]; old_len++)
-		;
+	while (start > end)
+	{
+		tmp = str[start];
+		str[start] = str[end];
+		str[end] = tmp;
+		start--;
+		end++;
+	}
+}
 
-	new_size = (old_len + 1) + 1;
-
-	newstr = _realloc(str, old_len, new_size);
-	
-	newstr[old_len++] = val;
-	newstr[old_len++] = '\0';
+/**
+  * op_char - takes in an argument and checks for a null terminating byte
+  * @str: original string
+  * @args: character passed
+  * Return: pointer to str
+  */
+char *op_char(__attribute__((unused)) char *str, va_list args)
+{
+	char *newstr = va_arg(args, char *);
 
 	return (newstr);
 }
 
-char op_str(char *str, char *op, char *val)
+/**
+  * op_str - takes in an argument and checks for a null terminating byte
+  * @str: original string
+  * @args: character passed
+  * Return: pointer to str
+  */
+char *op_str(__attribute__((unused)) char *str, va_list args)
 {
-	unsigned int old_len;
+	char *newstr = va_arg(args, char *);
+
+	return (newstr);
+}
+
+
+/**
+  * op_int - takes in an argument and converts int to char
+  * @str: original string
+  * @args: character passed
+  * Return: pointer to str
+  */
+char *op_int(__attribute__((unused)) char *str, va_list args)
+{
 	unsigned int val_len;
-	unsigned int new_size;
+	int val = va_arg(args, int);
 	char *newstr;
 
-	for (old_len = 0; str[old_len]; old_len++)
-		;
+	if (val >= 0)
+	{
+		val_len = find_len(val);
 
-	for (val_len = 0; val[val_len]; val_len++)
-		;
+		newstr = malloc(val_len + 1);
+		if (!newstr)
+			return (NULL);
 
-	new_size = (old_len + 1) + val_len;
+		itoa(val, newstr);
+		newstr[val_len] = '\0';
+		reverse_str(newstr, val_len);
+	}
+	else
+	{
+		val_len = find_len(val);
 
-	newstr = _realloc(str, old_len, new_size);
+		newstr = malloc(val_len + 2);
+		if (!newstr)
+			return (NULL);
 
-	for (val_len = 0; val[val_len]; val_len++)
-		newstr[old_len++] = val[val_len];
+		itoa(val, newstr);
+		newstr[val_len] = '-';
+		newstr[val_len + 1] = '\0';
+		reverse_str(newstr, val_len + 1);
+	}
 
-	newstr[old_len++] = '\0';
 
 	return (newstr);
 }
 
-char op_int(char *str, char *op, int val)
+/**
+  * op_dec - takes in an argument and converts int to char
+  * @str: original string
+  * @args: character passed
+  * Return: pointer to str
+  */
+char *op_dec(__attribute__((unused)) char *str, va_list args)
 {
-	unsigned int old_len;
 	unsigned int val_len;
-	unsigned int new_size;
-	unsigned int i = 0;
+	int val = va_arg(args, int);
 	char *newstr;
 
-	for (old_len = 0; str[old_len]; old_len++)
-		;
+	if (val >= 0)
+	{
+		val_len = find_len(val);
 
-	val_len = (val >= 1000000000) ? 9 : (val >= 100000000) ? 8 : 
-		(val >= 10000000) ? 7 : (val >= 1000000) ? 6 : 
-		(val >= 100000) ? 5 : (val >= 10000) ? 4 : 
-		(val >= 1000) ? 3 : (val >= 100) ? 2 : 
-		(val >= 10) ? 1 : 0;
+		newstr = malloc(val_len + 1);
+		if (!newstr)
+			return (NULL);
 
-	new_size = (old_len + 1) + val_len;
+		itoa(val, newstr);
+		newstr[val_len] = '\0';
+		reverse_str(newstr, val_len);
+	}
 
-	newstr = _realloc(str, old_len, new_size);
+	else
+	{	
+		val_len = find_len(val);
 
-	itoa(val, newstr);
+		newstr = malloc(val_len + 2);
+		if (!newstr)
+			return (NULL);
+
+		itoa(val, newstr);
+		newstr[val_len] = '-';
+		newstr[val_len + 1] = '\0';
+		reverse_str(newstr, val_len + 1);
+	}
 
 	return (newstr);
 }
-
-char op_dec(char *str, char *op, int val)
-{
-	unsigned int old_len;
-	unsigned int val_len;
-	unsigned int new_size;
-	unsigned int i = 0;
-	char *newstr;
-
-	for (old_len = 0; str[old_len]; old_len++)
-		;
-
-	val_len = (val >= 1000000000) ? 9 : (val >= 100000000) ? 8 : 
-		(val >= 10000000) ? 7 : (val >= 1000000) ? 6 : 
-		(val >= 100000) ? 5 : (val >= 10000) ? 4 : 
-		(val >= 1000) ? 3 : (val >= 100) ? 2 : 
-		(val >= 10) ? 1 : 0;
-
-	new_size = (old_len + 1) + val_len;
-
-	newstr = _realloc(str, old_len, new_size);
-
-	itoa(val, newstr);
-
-	return (newstr);
-}
-
