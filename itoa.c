@@ -1,25 +1,23 @@
 #include "holberton.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 /**
   * itoa - converts integer to ascii
-  * @n: integer to convert
-  * @s: pointer to string
+  * @val: integer to be converted
+  * @s: string to hold the converted integer
+  *
+  * Return: void
   */
-void itoa(int n, char *s)
+void itoa(int val, char *s)
 {
-	int i, sign = n;
+	if (val / 10 != 0)
+		itoa(val / 10, s + 1);
 
-	if (sign < 0)
-	n = -n;
-	i = 0;
+	if (val / 10 == 0 && val < 0)
+		*s = '-';
 
-	do {       /* generate digits in reverse order */
-	s[i++] = n % 10 + '0';   /* get next digit */
-	} while ((n /= 10) > 0);     /* delete it */
-
-	if (sign < 0)
-		s[i++] = '-';
-	s[i] = '\0';
+	if (val < 0)
+		*s = ((val * -1) % 10) + '0';
+	else
+		*s = (val % 10) + '0';
 }
