@@ -41,7 +41,7 @@ char *op_char(__attribute__((unused)) char *str, va_list args)
 	if (!newstr)
 		return (NULL);
 
-	newstr = va_arg(args, int);
+	newstr[0] = va_arg(args, int);
 	newstr[1] = '\0';
 
 	return (newstr);
