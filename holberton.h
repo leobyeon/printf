@@ -9,12 +9,15 @@
  * struct op - Struct op
  *
  * @op: The operator
- * @f: The function associated
+ * @func: The function associated
+ *
+ * Description: this struct is for iterating through
+ * args to return the matching function
  */
 typedef struct op
 {
 	char *op;
-	char * (*func)(char *a, va_list args);
+	char * (*func)(char *a, va_list);
 } op_t;
 
 int _printf(const char *format, ...);
