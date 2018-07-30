@@ -17,7 +17,7 @@ void itoa(int val, char *s)
 		*s = '-';
 
 	if (val < 0)
-		*s = ((val * -1) % 10) + '0';
+		*s = (val % 10) * -1 + '0';
 	else
 		*s = (val % 10) + '0';
 }
