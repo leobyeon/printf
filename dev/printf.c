@@ -44,7 +44,6 @@ int get_convspec(const char *ptr)
  * @format: pointer to format string
  * Return: Number of characters printed
  */
-#include <stdio.h>
 int _printf(const char *format, ...)
 {
 	va_list arglist;
@@ -111,7 +110,6 @@ int _printf(const char *format, ...)
 	}
 	write(1, outstr, stored);
 	totprinted += stored;
-	printf("debug- bytes printed: %d\n", totprinted);
 	free(outstr);
 	return (totprinted);
 }
