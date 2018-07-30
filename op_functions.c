@@ -4,9 +4,9 @@
 #include <stdarg.h>
 
 /**
-  * reverse_array - reverses the content of an array of integers
-  * @a: array
-  * @n: number of elements in the array
+  * reverse_str - reverses the content of a string
+  * @str: pointer to string
+  * @len: length of string
   *
   * Return: void
   */
@@ -119,9 +119,8 @@ char *op_dec(__attribute__((unused)) char *str, va_list args)
 		newstr[val_len] = '\0';
 		reverse_str(newstr, val_len);
 	}
-
 	else
-	{	
+	{
 		val_len = find_len(val);
 
 		newstr = malloc(val_len + 2);
