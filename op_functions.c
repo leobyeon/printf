@@ -35,7 +35,9 @@ void reverse_str(char *str, int len)
 char *op_char(__attribute__((unused)) char *str, va_list args)
 {
 	char *newstr;
+
 	newstr = malloc(2);
+
 	if (!newstr)
 		return (NULL);
 
