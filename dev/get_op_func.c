@@ -23,10 +23,11 @@ char *(*get_op_func(char *s))(char *, va_list)
 
 	for (end = 0; s[end]; end++)
 		;
+	end--;
 
 	while (ops[i].op)
 	{
-		if (s[end] == ops[i].op)
+		if (s[end] == *(ops[i].op))
 			return (ops[i].func);
 		i++;
 	}

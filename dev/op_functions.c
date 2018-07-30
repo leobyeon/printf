@@ -1,6 +1,30 @@
 #include "holberton.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdarg.h>
+
+/**
+  * reverse_array - reverses the content of an array of integers
+  * @a: array
+  * @n: number of elements in the array
+  *
+  * Return: void
+  */
+void reverse_str(char *str, int len)
+{
+	int start = len - 1;
+	int end = 0;
+	char tmp;
+
+	while (start > end)
+	{
+		tmp = str[start];
+		str[start] = str[end];
+		str[end] = tmp;
+		start--;
+		end++;
+	}
+}
 
 /**
   * op_char - takes in an argument and checks for a null terminating byte
@@ -8,13 +32,12 @@
   * @args: character passed
   * Return: pointer to str
   */
-char *op_char(char *str, va_list args)
+char *op_char(__attribute__((unused)) char *str, va_list args)
 {
 	char *newstr = va_arg(args, char *);
 
 	return (newstr);
 }
-
 
 /**
   * op_str - takes in an argument and checks for a null terminating byte
@@ -22,7 +45,7 @@ char *op_char(char *str, va_list args)
   * @args: character passed
   * Return: pointer to str
   */
-char *op_str(char *str, va_list args)
+char *op_str(__attribute__((unused)) char *str, va_list args)
 {
 	char *newstr = va_arg(args, char *);
 
@@ -36,46 +59,41 @@ char *op_str(char *str, va_list args)
   * @args: character passed
   * Return: pointer to str
   */
-char *op_int(char *str, va_list args)
+char *op_int(__attribute__((unused)) char *str, va_list args)
 {
 	unsigned int val_len;
-	unsigned int old_len;
 	int val = va_arg(args, int);
 	char *newstr;
 
 	if (val >= 0)
 	{
-		val_len = (val >= 1000000000) ? 10 : (val >= 100000000) ? 9 : 
-			(val >= 10000000) ? 8 : (val >= 1000000) ? 7 : 
-			(val >= 100000) ? 6 : (val >= 10000) ? 5 : 
-			(val >= 1000) ? 4 : (val >= 100) ? 3 : 
-			(val >= 10) ? 2 : 1;
+		val_len = find_len(val);
 
 		newstr = malloc(val_len + 1);
 		if (!newstr)
 			return (NULL);
-	}
 
+		itoa(val, newstr);
+		newstr[val_len] = '\0';
+		reverse_str(newstr, val_len);
+	}
 	else
 	{
-		val_len = (val <= -1000000000) ? 10 : (val <= -100000000) ? 9 : 
-			(val <= 10000000) ? 8 : (val <= -1000000) ? 7 : 
-			(val <= -100000) ? 6 : (val <= -10000) ? 5 : 
-			(val <= -1000) ? 4 : (val <= -100) ? 3 : 
-			(val <= -10) ? 2 : 1;
-	
+		val_len = find_len(val);
+
 		newstr = malloc(val_len + 2);
 		if (!newstr)
 			return (NULL);
+
+		itoa(val, newstr);
+		newstr[val_len] = '-';
+		newstr[val_len + 1] = '\0';
+		reverse_str(newstr, val_len + 1);
 	}
 
-	itoa(val, newstr);
-
-	newstr[val_len + 1] = '\0';
 
 	return (newstr);
 }
-
 
 /**
   * op_dec - takes in an argument and converts int to char
@@ -83,28 +101,38 @@ char *op_int(char *str, va_list args)
   * @args: character passed
   * Return: pointer to str
   */
-char *op_dec(char *str, va_list args)
+char *op_dec(__attribute__((unused)) char *str, va_list args)
 {
-	unsigned int old_len;
 	unsigned int val_len;
-	unsigned int new_size;
-	unsigned int i = 0;
+	int val = va_arg(args, int);
 	char *newstr;
 
-	for (old_len = 0; str[old_len]; old_len++)
-		;
+	if (val >= 0)
+	{
+		val_len = find_len(val);
 
-	val_len = (val >= 1000000000) ? 9 : (val >= 100000000) ? 8 : 
-		(val >= 10000000) ? 7 : (val >= 1000000) ? 6 : 
-		(val >= 100000) ? 5 : (val >= 10000) ? 4 : 
-		(val >= 1000) ? 3 : (val >= 100) ? 2 : 
-		(val >= 10) ? 1 : 0;
+		newstr = malloc(val_len + 1);
+		if (!newstr)
+			return (NULL);
 
-	new_size = (old_len + 1) + val_len;
+		itoa(val, newstr);
+		newstr[val_len] = '\0';
+		reverse_str(newstr, val_len);
+	}
 
-	newstr = _realloc(str, old_len, new_size);
+	else
+	{	
+		val_len = find_len(val);
 
-	itoa(val, newstr);
+		newstr = malloc(val_len + 2);
+		if (!newstr)
+			return (NULL);
+
+		itoa(val, newstr);
+		newstr[val_len] = '-';
+		newstr[val_len + 1] = '\0';
+		reverse_str(newstr, val_len + 1);
+	}
 
 	return (newstr);
 }
