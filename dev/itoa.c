@@ -3,11 +3,14 @@
 
 void itoa(int val, char *s)
 {
-	if (val < 0 && val / 10 == 0)
-		strconcat(s, '-');
+	if (val / 10 != 0)
+		itoa(val / 10, s + 1);
 
-	if (val / 10 > 0)
-		itoa(val / 10);
+	if (val / 10 == 0 && val < 0)
+		*s = '-';
 
-	_strcat(s, val + '0');
+	if (val < 0)
+		*s = ((val * -1) % 10) + '0';
+	else
+		*s = (val % 10) + '0';
 }
