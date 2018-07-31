@@ -35,7 +35,7 @@ int get_convspec(const char *ptr)
 		val = *(ptr + i);
 		i++;
 		if (_strchr(val))
-			return(i);
+			return (i);
 	}
 	return (2);
 }
@@ -54,7 +54,6 @@ int _printf(const char *format, ...)
 	char *tempstr;
 	char *convspec;
 	int totprinted = 0;
-	char c;
 
 
 	if (!format)
@@ -115,11 +114,17 @@ int _printf(const char *format, ...)
 				}
 				z++;
 			}
-			c = *(convspec + x - 1);
-			if (c == 'c' || c == 'd' || c == 'i')
+			if (tempstr && !tempstr[0])
 			{
-				free(tempstr);
+				outstr[stored] = tempstr[0];
+				stored++;
 			}
+			if (stored == 1024)
+			{	write(1, outstr, 1024);
+				totprinted += stored;
+				stored = 0;
+			}
+			free(tempstr);
 			free(convspec);
 			i += x;
 		}

@@ -33,8 +33,34 @@ char *op_char(__attribute__((unused)) char *str, va_list args)
 char *op_str(__attribute__((unused)) char *str, va_list args)
 {
 	char *newstr = va_arg(args, char *);
+	char *new2;
+	int i = 0, z = 0;
 
-	return (newstr);
+	if (newstr)
+	{
+		while (newstr[i])
+			i++;
+		new2 = malloc(i + 1);
+		if (!new2)
+			return (NULL);
+		for (z = 0; z < i; z++)
+			new2[z] = newstr[z];
+		new2[z] = '\0';
+	}
+	else
+	{
+		new2 = malloc(7);
+		if (!new2)
+			return (NULL);
+		new2[0] = '(';
+		new2[1] = 'n';
+		new2[2] = 'u';
+		new2[3] = 'l';
+		new2[4] = 'l';
+		new2[5] = ')';
+		new2[6] = '\0';
+	}
+	return (new2);
 }
 
 
