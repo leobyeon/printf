@@ -104,7 +104,7 @@ int _printf(const char *format, ...)
 				}
 				z++;
 			}
-			c = *(convspec + x);
+			c = *(convspec + x - 1);
 			if (c == 'c' || c == 'd' || c == 'i')
 			{
 				free(tempstr);
