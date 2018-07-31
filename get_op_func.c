@@ -17,6 +17,7 @@ char *(*get_op_func(char *s))(char *, va_list)
 		{"s", op_str},
 		{"i", op_int},
 		{"d", op_dec},
+		{"b", op_binary},
 		{NULL,  op_nf}
 	};
 	int i = 0;
