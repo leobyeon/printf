@@ -27,8 +27,10 @@ char *op_char(char *str, va_list args);
 char *op_str(char *str, va_list args);
 char *op_int(char *str, va_list args);
 char *op_dec(char *str, va_list args);
+char *op_binary(char *str, va_list args);
 char *op_nf(char *str, va_list args);
 char *(*get_op_func(char *s))(char *, va_list);
+void bi_recurse(unsigned int val, char *str);
 void reverse_str(char *str, int len);
 int find_len(int val);
 
