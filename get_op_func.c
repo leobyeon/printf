@@ -31,5 +31,5 @@ char *(*get_op_func(char *s))(char *, va_list)
 			return (ops[i].func);
 		i++;
 	}
-	return (ops[i].func);;
+	return (ops[i].func);
 }
