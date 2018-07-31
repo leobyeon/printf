@@ -6,7 +6,7 @@
 /**
   * get_op_func - returns a pointer to the function that corresponds
   * to the operator given as a parameter
-  * @s: operator
+  * @s: string given
   *
   * Return: pointer to the matching function
   */
