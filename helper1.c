@@ -18,3 +18,26 @@ int find_len(int val)
 
 	return (i);
 }
+/**
+  * reverse_str - reverses the content of a string
+  * @str: pointer to string
+  * @len: length of string
+  *
+  * Return: void
+  */
+void reverse_str(char *str, int len)
+{
+        int start = len - 1;
+        int end = 0;
+        char tmp;
+
+        while (start > end)
+        {   
+                tmp = str[start];
+                str[start] = str[end];
+                str[end] = tmp;
+                start--;
+                end++;
+        }   
+
+}

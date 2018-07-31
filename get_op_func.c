@@ -17,7 +17,7 @@ char *(*get_op_func(char *s))(char *, va_list)
 		{"s", op_str},
 		{"i", op_int},
 		{"d", op_dec},
-		{NULL, NULL}
+		{NULL,  op_nf}
 	};
 	int i = 0;
 	int end;
@@ -30,6 +30,6 @@ char *(*get_op_func(char *s))(char *, va_list)
 		if (s[end] == *(ops[i].op))
 			return (ops[i].func);
 		i++;
-	}	
-	exit (98);
+	}
+	return (ops[i].func);;
 }
