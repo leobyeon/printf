@@ -6,8 +6,7 @@
 /**
   * get_op_func - returns a pointer to the function that corresponds
   * to the operator given as a parameter
-  *
-  * @c: operator
+  * @s: operator
   *
   * Return: pointer to the matching function
   */
@@ -32,5 +31,5 @@ char *(*get_op_func(char *s))(char *, va_list)
 			return (ops[i].func);
 		i++;
 	}
-	return (ops[i].func);;
+	return (ops[i].func);
 }
