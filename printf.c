@@ -53,11 +53,12 @@ int _printf(const char *format, ...)
 	char *tempstr;
 	char *convspec;
 	int totprinted = 0;
+	char c;
 
 
 	if (!format)
 	{
-		return (0);
+		exit(95);
 	}
 	va_start(arglist, format);
 	outstr = malloc(1024);
@@ -76,13 +77,20 @@ int _printf(const char *format, ...)
 			x = get_convspec((format + i));
 			convspec = malloc(x + 1);
 			if (!convspec)
+			{
+				free(outstr);
 				exit(98);
+			}
 			for (z = 0; z < x; z++)
 				convspec[z] = format[i + z];
 			convspec[z] = '\0';
 			tempstr = get_op_func(convspec)(convspec, arglist);
 			if (!tempstr)
-				return (0);
+			{
+				free(convspec);
+				free(outstr);
+				exit(96);
+			}
 			z = 0;
 			while (tempstr[z])
 			{
@@ -95,6 +103,11 @@ int _printf(const char *format, ...)
 					stored = 0;
 				}
 				z++;
+			}
+			c = *(convspec + x);
+			if (c == 'c' || c == 'd' || c == 'i')
+			{
+				free(tempstr);
 			}
 			free(convspec);
 			i += x;

@@ -4,29 +4,6 @@
 #include <stdarg.h>
 
 /**
-  * reverse_str - reverses the content of a string
-  * @str: pointer to string
-  * @len: length of string
-  *
-  * Return: void
-  */
-void reverse_str(char *str, int len)
-{
-	int start = len - 1;
-	int end = 0;
-	char tmp;
-
-	while (start > end)
-	{
-		tmp = str[start];
-		str[start] = str[end];
-		str[end] = tmp;
-		start--;
-		end++;
-	}
-}
-
-/**
   * op_char - takes in an argument and checks for a null terminating byte
   * @str: original string
   * @args: character passed
@@ -143,3 +120,19 @@ char *op_dec(__attribute__((unused)) char *str, va_list args)
 
 	return (newstr);
 }
+
+/**
+ * op_nf - returns null pointer
+ * Description - dummy function that returns a null pointer
+ * @str: original string
+ * @args: character passed
+ * Return: null pointer;
+ */
+char *op_nf(char *str,  va_list args)
+{
+	(void) str;
+	(void) args;
+
+	return (0);
+}
+
