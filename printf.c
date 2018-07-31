@@ -58,12 +58,12 @@ int _printf(const char *format, ...)
 
 	if (!format)
 	{
-		exit(95);
+		return (-1);;
 	}
 	va_start(arglist, format);
 	outstr = malloc(1024);
 	if (!outstr)
-		exit(97);
+		return (-1);
 	while (format[i])
 	{
 		if (format[i] == '%' && format[i + 1] == '%')
@@ -75,11 +75,13 @@ int _printf(const char *format, ...)
 		else if (format[i] == '%')
 		{
 			x = get_convspec((format + i));
+			if (x == -1)
+				return (-1);
 			convspec = malloc(x + 1);
 			if (!convspec)
 			{
 				free(outstr);
-				exit(98);
+				return (-1);
 			}
 			for (z = 0; z < x; z++)
 				convspec[z] = format[i + z];
@@ -89,7 +91,7 @@ int _printf(const char *format, ...)
 			{
 				free(convspec);
 				free(outstr);
-				exit(96);
+				return (-1);
 			}
 			z = 0;
 			while (tempstr[z])
