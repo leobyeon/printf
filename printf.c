@@ -35,9 +35,9 @@ int get_convspec(const char *ptr)
 		val = *(ptr + i);
 		i++;
 		if (_strchr(val))
-			return (i);
+			return(i);
 	}
-	return (-1);
+	return (2);
 }
 /**
  * _printf - custom printf function to print string
@@ -48,6 +48,7 @@ int _printf(const char *format, ...)
 {
 	va_list arglist;
 	int i = 0, x = 0, z = 0;
+	int y = 0;
 	int stored = 0;
 	char *outstr;
 	char *tempstr;
@@ -89,16 +90,24 @@ int _printf(const char *format, ...)
 			tempstr = get_op_func(convspec)(convspec, arglist);
 			if (!tempstr)
 			{
-				free(convspec);
-				free(outstr);
-				return (-1);
+				for (y = 0; y < z; y++)
+				{
+					outstr[stored] = convspec[y];
+					stored++;
+					if (stored == 1024)
+					{
+						write(1, outstr, 1024);
+						totprinted += stored;
+						stored = 0;
+					}
+				}
 			}
 			z = 0;
-			while (tempstr[z])
+			while (tempstr && tempstr[z])
 			{
 				outstr[stored] = tempstr[z];
 				stored++;
-				if (stored == 1023)
+				if (stored == 1024)
 				{
 					write(1, outstr, 1024);
 					totprinted += stored;
@@ -120,7 +129,7 @@ int _printf(const char *format, ...)
 			stored++;
 			i++;
 		}
-		if (stored == 1023)
+		if (stored == 1024)
 		{
 			write(1, outstr, 1024);
 			totprinted += stored;
