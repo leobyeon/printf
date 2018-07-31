@@ -114,7 +114,7 @@ int _printf(const char *format, ...)
 				}
 				z++;
 			}
-			if (tempstr && !tempstr[0])
+			if (tempstr && !tempstr[0] && convspec[x - 1] == 'c')
 			{
 				outstr[stored] = tempstr[0];
 				stored++;
