@@ -72,6 +72,10 @@ int _printf(const char *format, ...)
 			stored++;
 			i += 2;
 		}
+		else if (format[i] == '%' && format[i + 1] == '\0')
+		{
+			return (-1);
+		}
 		else if (format[i] == '%')
 		{
 			x = get_convspec((format + i));
@@ -100,6 +104,8 @@ int _printf(const char *format, ...)
 						stored = 0;
 					}
 				}
+				while (*(format + i + x) == ' ')
+					x++;
 			}
 			z = 0;
 			while (tempstr && tempstr[z])
