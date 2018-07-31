@@ -1,7 +1,8 @@
 #include "holberton.h"
 #include <stdio.h>
 #include <stdarg.h>
-
+#include <string.h>
+#include <stdlib.h>
 /**
   * get_op_func - returns a pointer to the function that corresponds
   * to the operator given as a parameter
@@ -16,7 +17,8 @@ char *(*get_op_func(char *s))(char *, va_list)
 		{"c", op_char},
 		{"s", op_str},
 		{"i", op_int},
-		{"d", op_dec}
+		{"d", op_dec},
+		{NULL, NULL}
 	};
 	int i = 0;
 	int end;
@@ -24,12 +26,11 @@ char *(*get_op_func(char *s))(char *, va_list)
 	for (end = 0; s[end]; end++)
 		;
 	end--;
-
 	while (ops[i].op)
 	{
 		if (s[end] == *(ops[i].op))
 			return (ops[i].func);
 		i++;
-	}
-	return (0);
+	}	
+	exit (98);
 }
