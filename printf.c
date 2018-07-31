@@ -58,7 +58,7 @@ int _printf(const char *format, ...)
 
 	if (!format)
 	{
-		return (-1);;
+		return (-1);
 	}
 	va_start(arglist, format);
 	outstr = malloc(1024);
@@ -98,7 +98,7 @@ int _printf(const char *format, ...)
 			{
 				outstr[stored] = tempstr[z];
 				stored++;
-				if (stored == 1024)
+				if (stored == 1023)
 				{
 					write(1, outstr, 1024);
 					totprinted += stored;
@@ -120,7 +120,7 @@ int _printf(const char *format, ...)
 			stored++;
 			i++;
 		}
-		if (stored == 1024)
+		if (stored == 1023)
 		{
 			write(1, outstr, 1024);
 			totprinted += stored;
