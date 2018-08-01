@@ -1,7 +1,12 @@
 ## 0x10. C - printf
 
 #### Description:
-Implementation of printf in c.  
+Implementation of printf in C.  This program formats an input string and prints it out to the screen(standard out) and then returns the number of bytes printed to screen to the calling function.  
+
+#### Compilation:
+To compile the program and use it, put all the files in this repository in the same folder and supply your own main.c file.
+Then use the following command to compile it.
+gcc -Wall -Werror -Wextra -pedantic \*.c
 
 #### Files:
 File | Description
