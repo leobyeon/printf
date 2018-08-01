@@ -4,8 +4,8 @@
 
 /**
   * op_binary - converts unsigned int into binary
-  * @val: integer to be converted
-  * @str: string to hold the converted integer
+  * @str: unused
+  * @args: the number to convert
   *
   * Return: string that contains the binary number
   */
@@ -30,6 +30,6 @@ char *op_binary(__attribute__((unused)) char *str, va_list args)
 	reverse_str(newstr, len + 1);
 
 	newstr[len + 1] = '\0';
-	
+
 	return (newstr);
 }
