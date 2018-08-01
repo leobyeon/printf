@@ -1,4 +1,5 @@
 .TH _PRINTF
+. July 30, 2018
 .SH NAME
 _printf \- modify files by randomly changing bits
 .SH LIBRARY
@@ -35,6 +36,16 @@ The format string is a character string, beginning and ending in its initial shi
 %i - integer
 
 %c - character
+
+%b - binary
+
+.SH EXAMPLES
+
+An example of an implementation: 
+
+	_printf("Hello %s\n", "world");
+
+would print "Hello world" with a new line after it.
 
 .SH AUTHORS
 
