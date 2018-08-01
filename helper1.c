@@ -42,18 +42,3 @@ void reverse_str(char *str, int len)
 
 }
 
-/**
-  * bi_recurse - converts integer to binary through recursion
-  * @val: integer to be converted
-  * @str: string to hold the converted integer
-  *
-  * Return: void
-  */
-void bi_recurse(unsigned int val, char *str)
-{
-	if (val / 2 > 0)
-	{
-		*str = (val % 2) + '0';
-		bi_recurse(val / 2, str + 1);
-	}
-}
