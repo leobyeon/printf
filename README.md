@@ -1,9 +1,9 @@
-### 0x10. C - printf
+## 0x10. C - printf
 
 #### Description:
 Implementation of printf in c.  
 
-#### Files
+#### Files:
 File | Description
 ---|---
 get_op_func.c | Wrapper Function to pick the correct conversion specifier function
@@ -15,6 +15,6 @@ op_binary.c | function to convert from decimal to binary
 op_functions.c | conversion specifier functions
 printf.c | _printf function file
 
-Authors
-Leo Byeon
+#### Authors  
+Leo Byeon  
 Peter Wu
