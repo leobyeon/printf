@@ -12,24 +12,40 @@
 char *op_binary(__attribute__((unused)) char *str, va_list args)
 {
 	int len = 0;
-	int val = va_arg(args, int);
+	unsigned int val = va_arg(args, unsigned int);
+	int i;
+	unsigned int t = val;
 	char *newstr;
+	char tmp;
 
-	while (val > 0)
+	if (val == 0)
 	{
-		val /= 2;
+		newstr = malloc(2);
+		newstr[0] = '0';
+		newstr[1] = '\0';
+		return (newstr);
+	}
+
+	while (t > 0)
+	{
+		t /= 2;
 		len++;
 	}
 
 	newstr = malloc(len + 1);
+
 	if (!newstr)
 		return (NULL);
 
-	bi_recurse(val, newstr);
+	for (i = 0; i < len; i++)
+	{
+		tmp = val % 2 + '0';
+		*(newstr + i) = tmp;
+		val /= 2;
+	}
+	newstr[i] = '\0';
 
-	reverse_str(newstr, len + 1);
-
-	newstr[len + 1] = '\0';
+	reverse_str(newstr, len);
 
 	return (newstr);
 }
